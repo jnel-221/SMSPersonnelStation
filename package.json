@@ -1,0 +1,29 @@
+{
+  "name": "smspersonnelstation",
+  "version": "1.0.0",
+  "description": "Staff Management Stystem",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnel-221/SMSPersonnelStation.git"
+  },
+  "author": "J Nelson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jnel-221/SMSPersonnelStation/issues"
+  },
+  "homepage": "https://github.com/jnel-221/SMSPersonnelStation#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^8.2.0",
+    "figlet": "^1.5.0",
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1"
+  }
+}
