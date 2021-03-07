@@ -36,6 +36,4 @@ VALUES("Manager", "65000.00", 5);
 INSERT INTO role(title, salary, deptid)
 VALUES("Practice Administrator", "70000.00", 5);
 
---employee
-
 
