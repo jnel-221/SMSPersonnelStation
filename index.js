@@ -1,12 +1,14 @@
-var mysql = require("mysql");
+const mysql = require("mysql");
 require("dotenv").config();
+const figlet = require("figlet");
+const init = require("./utils/inquirer");
 
-var connection = mysql.createConnection({
-   //Your host 
+const connection = mysql.createConnection({
+  //Your host
   host: process.env.DB_HOST,
   // Your port
   port: process.env.DB_PORT,
-  
+
   // Your username
   user: process.env.DB_USER,
 
@@ -18,15 +20,28 @@ var connection = mysql.createConnection({
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  queryData();
+  displayLogo();
+
+  //   queryData();
 });
 
-const queryData = () => {
-  connection.query("SELECT * FROM employee", (err, res) => {
-    if (err) throw err;
-    res.forEach(({ first_name, last_name, roleid, mngrid }) => {
-      console.log(`${first_name} | ${last_name} | ${roleid} | ${mngrid}`);
-    });
-    console.log("-----------------------------------");
+function displayLogo() {
+  figlet("SMS Personnel Station", function (err, text) {
+    if (err) {
+      console.log("something went wrong...");
+      console.dir(err);
+      return;
+    }
+    console.log(text);
+    init();
   });
-};
+}
+// const queryData = () => {
+//   connection.query("SELECT * FROM employee", (err, res) => {
+//     if (err) throw err;
+//     res.forEach(({ first_name, last_name, roleid, mngrid }) => {
+//       console.log(`${first_name} | ${last_name} | ${roleid} | ${mngrid}`);
+//     });
+//     console.log("-----------------------------------");
+//   });
+// };
