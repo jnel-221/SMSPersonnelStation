@@ -82,7 +82,7 @@ const createRole = [
 async function init() {
   const { options } = await inquirer.prompt(displayOptions);
 
-  //add logic that takes the option variable and passes it to the appropriate function based on option chosen; will use if/else statments for this.
+  //add logic that takes the options variable and passes it to the appropriate function based on option chosen; will use if/else statments for this.
 }
 
 module.exports = init;
