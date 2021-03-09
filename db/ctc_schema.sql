@@ -6,7 +6,7 @@ USE ctc_db;
 
 CREATE TABLE department(
 deptid INT AUTO_INCREMENT,
-name VARCHAR(30),
+dept_name VARCHAR(30),
 PRIMARY KEY(deptid)
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE role(
     roleid INT AUTO_INCREMENT,
     title VARCHAR(30),
     salary DECIMAL(9,2),
-    deptid INT,
+    deptid INT NULL,
     PRIMARY KEY(roleid),
     FOREIGN KEY(deptid) REFERENCES department(deptid)
 );
