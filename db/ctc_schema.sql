@@ -23,8 +23,9 @@ CREATE TABLE employee(
     empid INT AUTO_INCREMENT,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
-    roleid INT,
-    mngrid INT REFERENCES employee(empid),
+    roleid INT NULL,
+    mngrid INT NULL,
     PRIMARY KEY(empid),
     FOREIGN KEY(roleid) REFERENCES role(roleid),
+    FOREIGN KEY (mngrid) REFERENCES employee (empid)
 );

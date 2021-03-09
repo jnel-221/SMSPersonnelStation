@@ -1,7 +1,9 @@
 const mysql = require("mysql");
 require("dotenv").config();
 const figlet = require("figlet");
-const init = require("./utils/inquirer");
+
+const inquirer = require("inquirer");
+const runQuestions = require("./utils/inquirer");
 
 const connection = mysql.createConnection({
   //Your host
@@ -21,8 +23,6 @@ connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
   displayLogo();
-
-  //   queryData();
 });
 
 function displayLogo() {
@@ -33,15 +33,8 @@ function displayLogo() {
       return;
     }
     console.log(text);
-    init();
+    runQuestions();
   });
 }
-// const queryData = () => {
-//   connection.query("SELECT * FROM employee", (err, res) => {
-//     if (err) throw err;
-//     res.forEach(({ first_name, last_name, roleid, mngrid }) => {
-//       console.log(`${first_name} | ${last_name} | ${roleid} | ${mngrid}`);
-//     });
-//     console.log("-----------------------------------");
-//   });
-// };
+
+module.exports = connection;

@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const readTables = require("../lib/viewAll");
 
 const displayOptions = {
   type: "list",
@@ -79,10 +80,24 @@ const createRole = [
   },
 ];
 
-async function init() {
-  const { options } = await inquirer.prompt(displayOptions);
+function runQuestions() {
+  inquirer.prompt(displayOptions).then((answer) => {
+    switch (answer.action) {
+      case "View all employees":
+        readTables();
+        break;
 
-  //add logic that takes the options variable and passes it to the appropriate function based on option chosen; will use if/else statments for this.
+      default:
+        console.log(`Invalid action: ${answer.action}`);
+        break;
+    }
+  });
 }
+//console.log(options);
+//   if (options == "View all employees") {
+readTables();
+//   }
 
-module.exports = init;
+//add logic that takes the options variable and passes it to the appropriate function based on option chosen; will use if/else statments for this.
+
+module.exports = runQuestions;
