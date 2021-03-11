@@ -1,20 +1,15 @@
-const mysql = require("mysql");
+const connection = require("./utils/connection");
 require("dotenv").config();
 const figlet = require("figlet");
 const cTable = require("console.table");
 
 const inquirer = require("inquirer");
-const {displayOptions, createEmployee }= require("./utils/inquirer");
-const { connectionDescrip } = require("./lib/viewFunctions");
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+const { displayOptions, createEmployee } = require("./utils/inquirer");
+const {
+  displayCompleteTable,
+  displayEmployeesByDepartment,
+  displayEmployeesByManager,
+} = require("./lib/viewFunctions");
 
 connection.connect(function (err) {
   if (err) throw err;
@@ -38,66 +33,55 @@ function runQuestions() {
   inquirer
     .prompt(displayOptions)
     .then((answer) => {
-      console.log(answer.options, "are you defined?");
-      switch (answer.options) {
-        case "View all employees":
-          console.log(answer.options, "are you defined?");
-          displayCompleteTable();
-          break;
-
-        // case "View all employees by department":
-        //   console.log(answer.options, "are you defined?");
-        //   //function goes here
-        //   break;
-
-        // case "View all employees by manager":
-        //   console.log(answer.options, "are you defined?");
-        //   //function goes here
-        //   break;
-
-        // case "Add employee":
-        //   console.log(answer.options, "are you defined?");
-        //   //function goes here
-        //   break;
-
-        // case "Remove employee":
-        //   console.log(answer.options, "are you defined?");
-        //   //function goes here
-        //   break;
-
-        // case "Update employee role":
-        //   console.log(answer.options, "are you defined?");
-        //   //function goes here
-        //   break;
-
-        // case "Update employee manager":
-        //   console.log(answer.options, "are you defined?");
-        //   //function goes here
-        //   break;
-
-        default:
-          console.log(`Invalid action: ${answer.options}`);
-          break;
-      }
+      switcher(answer);
     })
     .catch((err) => {
       if (err) throw err;
     });
 }
 
-function displayCompleteTable() {
-  console.log("Creating department table...\n");
+async function switcher(answer) {
+  switch (answer.options) {
+    case "View all employees":
+      const table = await displayCompleteTable();
+      console.log(table);
+      //runQuestions();
+      break;
 
-  const sql =
-    "SELECT empid, first_name, last_name, title, salary, dept_name FROM employee INNER JOIN role on employee.roleid = role.roleid INNER JOIN department ON role.deptid = department.deptid";
-  connection.query(sql, function (err, res) {
-    if (err) throw err;
-    console.log(res);
-    console.table(res);
-  });
-  runQuestions();
+    case "View all employees by department":
+      displayEmployeesByDepartment();
+
+      break;
+
+    case "View all employees by manager":
+      displayEmployeesByManager();
+      break;
+
+    case "Add employee":
+      console.log(answer.options, "are you defined?");
+      addEmployee();
+      break;
+
+    case "Remove employee":
+      console.log(answer.options, "are you defined?");
+      //function goes here
+      break;
+
+    case "Update employee role":
+      console.log(answer.options, "are you defined?");
+      //function goes here
+      break;
+
+    case "Update employee manager":
+      console.log(answer.options, "are you defined?");
+      //function goes here
+      break;
+
+    default:
+      console.log(`Invalid action: ${answer.action}`);
+      break;
+  }
 }
-
 // function displayDepartments() {
 //   console.log("Creating list of departments...");
 
@@ -113,4 +97,37 @@ function displayCompleteTable() {
 //   })
 // }
 
-module.exports = connection;
+//add "create" functions
+async function addEmployee() {
+  const { first_name, last_name, role } = await inquirer.prompt(createEmployee);
+  //  switch(role){
+  //    case role
+  //  }
+
+  const sql = `INSERT INTO employee (first_name, last_name, role) VALUES (${first_name}, ${last_name}, ${role})`;
+  console.log(sql);
+  connection.query(sql, function (err, res) {
+    if (err) throw err;
+    console.log(res);
+    //console.table(res);
+  });
+  runQuestions();
+
+  //runQuestions();
+}
+
+//db list retrieval functions: departments, roles, employees
+function getRoles() {
+  const sql = "SELECT roleid, title FROM role";
+  connection.query(sql, function (err, res) {
+    if (err) throw err;
+    res.forEach(({ roleid, title }) => console.log(roleid, title));
+    //console.table(res);
+  });
+}
+//getRoles();
+
+module.exports = {
+  runQuestions,
+  getRoles,
+};

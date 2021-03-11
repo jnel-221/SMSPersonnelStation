@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-// const readTables = require("../lib/viewFunctions");
+const { getRoles } = require("../app");
 
 const displayOptions = {
   type: "list",
@@ -15,6 +15,13 @@ const displayOptions = {
     "Update employee manager",
   ],
   default: "View all employees",
+};
+
+const displayDepartment = {
+  type: "list",
+  name: "options",
+  message: "Which Department would you like to see?",
+  choices: [],
 };
 
 const createEmployee = [
@@ -33,25 +40,25 @@ const createEmployee = [
     name: "role",
     message: "What is employee's role?",
     choices: [
-      "RN (Hem/Onc)",
-      "RN (Rad/Onc)",
-      "MD (Hem/Onc)",
-      "MD (Rad/Onc)",
-      "MA",
-      "F/O Coordinator",
-      "A/R Specialist",
-      "Coding Specialist",
-      "Manager",
-      "Practice Administrator",
+      getRoles,
+      // "RN (Hem/Onc)",
+      // "RN (Rad/Onc)",
+      // "MD (Hem/Onc)",
+      // "MD (Rad/Onc)",
+      // "MA",
+      // "F/O Coordinator",
+      // "A/R Specialist",
+      // "Coding Specialist",
+      // "Manager",
+      // "Practice Administrator",
     ],
-    default: "RN (Hem/Onc)",
   },
-  {
-    type: "list",
-    name: "manager",
-    message: "Who is the employee's manager?",
-    choices: ["none", "Leon Baker", "Susan Nguyen", "Diane Mitchell"],
-  },
+  // {
+  //   type: "list",
+  //   name: "manager",
+  //   message: "Who is the employee's manager?",
+  //   choices: ["none", "Leon Baker", "Susan Nguyen", "Diane Mitchell"],
+  // },
 ];
 
 const createDepartment = {
