@@ -4,12 +4,14 @@ const figlet = require("figlet");
 const cTable = require("console.table");
 
 const inquirer = require("inquirer");
-const { displayOptions, createEmployee } = require("./utils/inquirer");
+const { displayOptions } = require("./utils/inquirer");
 const {
   displayCompleteTable,
   displayEmployeesByDepartment,
   displayEmployeesByManager,
 } = require("./lib/viewFunctions");
+
+const { addDepartment } = require("./lib/createFunctions");
 
 connection.connect(function (err) {
   if (err) throw err;
@@ -39,7 +41,7 @@ const runQuestions = () => {
     .catch((err) => {
       if (err) throw err;
     });
-}
+};
 
 async function switcher(answer) {
   switch (answer.options) {
@@ -56,6 +58,14 @@ async function switcher(answer) {
 
     case "View all employees by manager":
       displayEmployeesByManager();
+      break;
+
+    case "Add department":
+      addDepartment();
+      break;
+    case "Add role":
+      console.log(answer.options, "are you defined?");
+      //function goes here;
       break;
 
     case "Add employee":
@@ -84,37 +94,4 @@ async function switcher(answer) {
   }
 }
 
-
-//add "create" functions
-async function addEmployee() {
-  const { first_name, last_name, role } = await inquirer.prompt(createEmployee);
-  //  switch(role){
-  //    case role
-  //  }
-
-  const sql = `INSERT INTO employee (first_name, last_name, role) VALUES (${first_name}, ${last_name}, ${role})`;
-  console.log(sql);
-  connection.query(sql, function (err, res) {
-    if (err) throw err;
-    console.log(res);
-    //console.table(res);
-  });
-  runQuestions();
-
-  //runQuestions();
-}
-
-//db list retrieval functions: departments, roles, employees
-// function getRoles() {
-//   const sql = "SELECT roleid, title FROM role";
-//   connection.query(sql, function (err, res) {
-//     if (err) throw err;
-//     res.forEach(({ roleid, title }) => console.log(roleid, title));
-//     //console.table(res);
-//   });
-// }
-//getRoles();
-
-module.exports.runQuestions= runQuestions;
-  //getRoles,
-
+module.exports.runQuestions = runQuestions;

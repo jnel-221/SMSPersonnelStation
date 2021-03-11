@@ -9,6 +9,8 @@ const displayOptions = {
     "View all employees",
     "View all employees by department",
     "View all employees by manager",
+    "Add department",
+    "Add role",
     "Add employee",
     "Remove employee",
     "Update employee role",
@@ -64,7 +66,7 @@ const createEmployee = [
 const createDepartment = {
   type: "input",
   name: "name",
-  message: "What the department name?",
+  message: "What is the department name?",
 };
 
 const createRole = [
@@ -87,14 +89,9 @@ const createRole = [
   },
 ];
 
-//console.log(options);
-//   if (options == "View all employees") {
-
-//   }
-
-//add logic that takes the options variable and passes it to the appropriate function based on option chosen; will use if/else statments for this.
-
 module.exports = {
   displayOptions,
   createEmployee,
+  createDepartment,
+  createRole,
 };
