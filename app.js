@@ -29,7 +29,8 @@ function displayLogo() {
   });
 }
 
-function runQuestions() {
+//this is used in a lot of different places, so maybe it get's its own file?
+const runQuestions = () => {
   inquirer
     .prompt(displayOptions)
     .then((answer) => {
@@ -82,20 +83,7 @@ async function switcher(answer) {
       break;
   }
 }
-// function displayDepartments() {
-//   console.log("Creating list of departments...");
 
-//   const sql = "SELECT dept_name";
-// }
-
-// function displayEmployeebyDepartment(department){
-//   console.log("Creating table of Employees by Department...")
-//   const sql =  `SELECT empid, first_name, last_name, title, salary, name FROM employee INNER JOIN role on employee.roleid = role.roleid INNER JOIN department ON role.deptid = department.deptid WHERE deptid = ${department}`;
-//   connection.query(sql, function(err,res){
-//     if (err) throw err;
-
-//   })
-// }
 
 //add "create" functions
 async function addEmployee() {
@@ -117,17 +105,16 @@ async function addEmployee() {
 }
 
 //db list retrieval functions: departments, roles, employees
-function getRoles() {
-  const sql = "SELECT roleid, title FROM role";
-  connection.query(sql, function (err, res) {
-    if (err) throw err;
-    res.forEach(({ roleid, title }) => console.log(roleid, title));
-    //console.table(res);
-  });
-}
+// function getRoles() {
+//   const sql = "SELECT roleid, title FROM role";
+//   connection.query(sql, function (err, res) {
+//     if (err) throw err;
+//     res.forEach(({ roleid, title }) => console.log(roleid, title));
+//     //console.table(res);
+//   });
+// }
 //getRoles();
 
-module.exports = {
-  runQuestions,
-  getRoles,
-};
+module.exports.runQuestions= runQuestions;
+  //getRoles,
+
