@@ -11,7 +11,11 @@ const {
   displayEmployeesByManager,
 } = require("./lib/viewFunctions");
 
-const { addDepartment } = require("./lib/createFunctions");
+const {
+  addDepartment,
+  addRole,
+  addEmployee,
+} = require("./lib/createFunctions");
 
 connection.connect(function (err) {
   if (err) throw err;
@@ -65,11 +69,10 @@ async function switcher(answer) {
       break;
     case "Add role":
       console.log(answer.options, "are you defined?");
-      //function goes here;
+      addRole();
       break;
 
     case "Add employee":
-      console.log(answer.options, "are you defined?");
       addEmployee();
       break;
 
