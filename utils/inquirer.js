@@ -19,12 +19,13 @@ const displayOptions = {
   default: "View all employees",
 };
 
-const displayDepartment = {
-  type: "list",
-  name: "options",
-  message: "Which Department would you like to see?",
-  choices: [],
-};
+//not in use
+// const displayDepartment = {
+//   type: "list",
+//   name: "options",
+//   message: "Which Department would you like to see?",
+//   choices: [],
+// };
 
 const createEmployee = [
   {

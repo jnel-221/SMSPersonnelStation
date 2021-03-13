@@ -68,7 +68,6 @@ async function switcher(answer) {
       addDepartment();
       break;
     case "Add role":
-      console.log(answer.options, "are you defined?");
       addRole();
       break;
 
