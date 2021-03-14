@@ -6,6 +6,7 @@ const cTable = require("console.table");
 const inquirer = require("inquirer");
 const { displayOptions } = require("./utils/inquirer");
 const {
+  displayAllDepartments,
   displayCompleteTable,
   displayEmployeesByDepartment,
   displayEmployeesByManager,
@@ -16,6 +17,8 @@ const {
   addRole,
   addEmployee,
 } = require("./lib/createFunctions");
+
+const {updateEmployeeManager} = require("./lib/updateFunctions");
 
 connection.connect(function (err) {
   if (err) throw err;
@@ -35,7 +38,6 @@ function displayLogo() {
   });
 }
 
-//this is used in a lot of different places, so maybe it get's its own file?
 const runQuestions = () => {
   inquirer
     .prompt(displayOptions)
@@ -50,9 +52,7 @@ const runQuestions = () => {
 async function switcher(answer) {
   switch (answer.options) {
     case "View all employees":
-      const table = await displayCompleteTable();
-      console.log(table);
-      //runQuestions();
+      displayCompleteTable();
       break;
 
     case "View all employees by department":
@@ -62,6 +62,10 @@ async function switcher(answer) {
 
     case "View all employees by manager":
       displayEmployeesByManager();
+      break;
+
+    case "View all Departments":
+      displayAllDepartments();
       break;
 
     case "Add department":
@@ -76,18 +80,17 @@ async function switcher(answer) {
       break;
 
     case "Remove employee":
-      console.log(answer.options, "are you defined?");
+      console.log(answer.options, "This Feature is coming soon!");
       //function goes here
       break;
 
     case "Update employee role":
-      console.log(answer.options, "are you defined?");
+      console.log(answer.options, "This Feature is coming soon!");
       //function goes here
       break;
 
     case "Update employee manager":
-      console.log(answer.options, "are you defined?");
-      //function goes here
+      updateEmployeeManager();
       break;
 
     default:
