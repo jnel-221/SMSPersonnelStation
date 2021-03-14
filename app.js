@@ -7,6 +7,7 @@ const inquirer = require("inquirer");
 const { displayOptions } = require("./utils/inquirer");
 const {
   displayAllDepartments,
+  displayAllRoles,
   displayCompleteTable,
   displayEmployeesByDepartment,
   displayEmployeesByManager,
@@ -18,7 +19,7 @@ const {
   addEmployee,
 } = require("./lib/createFunctions");
 
-const {updateEmployeeManager} = require("./lib/updateFunctions");
+const { updateEmployeeManager } = require("./lib/updateFunctions");
 
 connection.connect(function (err) {
   if (err) throw err;
@@ -66,6 +67,10 @@ async function switcher(answer) {
 
     case "View all Departments":
       displayAllDepartments();
+      break;
+
+    case "View all Roles":
+      displayAllRoles();
       break;
 
     case "Add department":

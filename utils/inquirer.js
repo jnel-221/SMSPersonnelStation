@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 
-
 const displayOptions = {
   type: "list",
   name: "options",
@@ -10,6 +9,7 @@ const displayOptions = {
     "View all employees by department",
     "View all employees by manager",
     "View all Departments",
+    "View all Roles",
     "Add department",
     "Add role",
     "Add employee",
@@ -19,14 +19,6 @@ const displayOptions = {
   ],
   default: "View all employees",
 };
-
-//not in use
-// const displayDepartment = {
-//   type: "list",
-//   name: "options",
-//   message: "Which Department would you like to see?",
-//   choices: [],
-// };
 
 const createDepartment = {
   type: "input",
